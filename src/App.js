@@ -16,14 +16,51 @@ class App extends Component{
         const newObj = [todoObj, ...this.state.todos]
         this.setState({todos: newObj})
     }
+
+    updateTodo = (id, done) => {
+        const {todos} = this.state
+        const newTodos = todos.map((todo) => {
+            if (todo.id === id) {
+                return {...todo, done: done}
+            }
+            else return todo
+        })
+        this.setState({todos: newTodos})
+    }
+
+    deleteItem = (id) => {
+        const {todos} = this.state
+        const newTodos = todos.filter( (todo) => {
+            return todo.id !== id
+            }
+        )
+        this.setState({todos:newTodos})
+
+    }
+
+    changeAllItems = (done) => {
+        const {todos} = this.state
+        const newTodos = todos.map(todo => {
+            todo.done = done
+            return todo
+        })
+        this.setState({todos:newTodos})
+    }
+
+    clearFinishedItems = () => {
+        const {todos} = this.state
+        const newTodos = todos.filter(todo => !todo.done)
+        this.setState({todos:newTodos})
+    }
+
     render() {
         const {todos} = this.state
         return (
           <div className="todo-container">
               <div className="todo-wrap">
                   <Header addItem={this.addItem}/>
-                  <List todos={todos}/>
-                  <Footer/>
+                  <List todos={todos} updateTodo={this.updateTodo} deleteItem={this.deleteItem}/>
+                  <Footer todos={todos} changeAllItems={this.changeAllItems} clearFinishedItems={this.clearFinishedItems}/>
               </div>
           </div>
       );

@@ -1,8 +1,13 @@
 import React , {Component} from "react";
+import PropTypes from "prop-types";
 import './index.css'
 import {nanoid} from "nanoid";
+
 export default class Header extends Component {
 
+    static propTypes = {
+        addItem: PropTypes.func.isRequired
+    }
     handleInput = (event) => {
         const {keyCode, target} = event
         if (keyCode !== 13) return
