@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">Send request</button>
+<div style="border: 1px solid black; height: 200px; width: 300px" id="result"></div>
+<script>
+    const btn = document.getElementById("btn")
+    const result = document.getElementById("result")
+    btn.onclick = () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', "http://127.0.0.1:8000/server")
+        xhr.send()
+        xhr.onreadystatechange=()=>{
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    result.innerHTML = xhr.response
+                }
+            }
+        }
+
+    }
+</script>
+</body>
+</html>
